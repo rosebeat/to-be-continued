@@ -1,4 +1,4 @@
-package com.example.leetcode;
+package com.example.leetcode.dp;
 
 public class Coding_1518 {
 
