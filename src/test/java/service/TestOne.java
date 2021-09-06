@@ -20,5 +20,7 @@ public class TestOne {
         lru.add("4", "4");
 
         System.out.println(lru.toString());
+        lru.get("1");
+        System.out.println(lru.toString());
     }
 }

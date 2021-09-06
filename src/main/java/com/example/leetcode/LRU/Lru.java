@@ -32,6 +32,12 @@ public class Lru<K, V> {
             this.pre = null;
             this.next = next;
         }
+        public Node(K key, V value,Node head, Node next){
+            this.key = key;
+            this.value = value;
+            this.pre = head;
+            this.next = next;
+        }
     }
 
     private HashMap<K, Node> nodeMap;
@@ -73,8 +79,10 @@ public class Lru<K, V> {
         if (size >= cacheCapacity){
             delete();
         }
-        Node node = new Node(key, value, head);
-        head.pre = node;
+        Node node = new Node(key, value,head);
+        if (head != null){
+            head.pre = node;
+        }
         head = node;
         if (tail == null){
             tail = node;
