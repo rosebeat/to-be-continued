@@ -23,6 +23,7 @@ public class SingletonExample4 {
     private enum Singleton{
 
         INSTANCE;
+
         private SingletonExample4 singleton;
 
         Singleton(){
