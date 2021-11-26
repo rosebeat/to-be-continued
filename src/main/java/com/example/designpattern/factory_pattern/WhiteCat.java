@@ -1,4 +1,4 @@
-package com.example.designpattern.factory;
+package com.example.designpattern.factory_pattern;
 
 /**
  * @author kai·yang

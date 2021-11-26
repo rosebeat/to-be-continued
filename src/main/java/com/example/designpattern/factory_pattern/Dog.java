@@ -1,10 +1,10 @@
-package com.example.designpattern.factory;
+package com.example.designpattern.factory_pattern;
 
 /**
  * @author kai·yang
  * @Date 2021/11/25 11:47
  */
-public interface Cat {
+public interface Dog {
 
     void name();
 
