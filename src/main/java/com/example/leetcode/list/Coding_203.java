@@ -39,4 +39,24 @@ public class Coding_203 {
         }
         return newNode.next;
     }
+
+
+    /**
+     * 递归
+     * @param node
+     * @param val
+     * @return
+     */
+    public ListNode removedElementsTwo(ListNode node, int val){
+        if (node == null){
+            return node;
+        }
+        if(node.val == val){
+            node = removedElementsTwo(node.next, val);
+        }else{
+            node.next = removedElementsTwo(node.next, val);
+        }
+
+       return node;
+    }
 }
