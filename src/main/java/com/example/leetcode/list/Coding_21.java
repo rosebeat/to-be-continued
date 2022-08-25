@@ -61,7 +61,7 @@ public class Coding_21 {
         if (list1 == null){
             return list2;
         }
-        //终止田间
+        //终止条件
         if (list2 == null){
             return list1;
         }
