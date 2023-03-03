@@ -4,10 +4,15 @@ import com.example.designpattern.factory_pattern.AnimalFactory;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class Test {
+
+    private static final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
 
     public static void main(String[] args) {
 //        String s = "test";
@@ -28,6 +33,7 @@ public class Test {
 
         System.out.println(isPalindrome(10));
 
+        System.out.println(format.format(new Date()));
     }
 
     public static boolean isPalindrome(int x) {
