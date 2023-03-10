@@ -34,18 +34,19 @@ public class Coding_69 {
      * @param x
      * @return
      */
-    public static int mySqrt(int x) {
+    public static int mySqrt(long x) {
         int s = 0;
-        int e =  (x + 1) / 2;
-        int lastNum = -1;
+        int e = (int) ((x + 1) / 2);
+        int lastNum = 0;
         //开始设置最高值为 x/2 ,因为值的平方根都会  <= (x+1)/2
-        while(s <= e){
-            int mid = (s + e) / 2;
-            if (mid * mid <= x){
+        while(s < e){
+            int mid = s + (e - s) / 2;
+            //这里采用除法 防止溢出
+            if (mid  <= x / mid){
                 lastNum = mid;
                 s = mid + 1;
             }else{
-                e = mid -1;
+                e = mid;
             }
         }
         return lastNum;
@@ -59,7 +60,14 @@ public class Coding_69 {
 
 
     public static void main(String[] args) {
-        System.out.println(mySqrt(8));
+        //2147395599--46339
+        //2147483647--46340
+        //System.out.println(mySqrt(2147483647));
+        System.out.println((int)Math.pow(2, 32) - 1 );
+        System.out.println(Integer.toBinaryString((int)Math.pow(2, 32)) );
+        System.out.println(Integer.parseInt("1111111111111111111111111111110", 2));
+        System.out.println(Integer.toBinaryString((int)Math.pow(-2, 32)) );
+
     }
 
 
