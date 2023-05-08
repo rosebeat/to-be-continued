@@ -79,7 +79,36 @@ public class Coding_455 {
     public static void main(String[] args) {
         int[] g = {1,2,3};
         int[] s = {1,1};
-        System.out.println(findContentChildren(g, s));
+        //System.out.println(findContentChildren(g, s));
+        String str = "13800000000";
+        System.out.println(str.substring(0,3) + "****" + str.substring(str.length() - 4 ));
+        System.out.println(getEncryptStr("杨凯"));
+        System.out.println(getEncryptStr("kai.yang@ipinyou.com"));
+        System.out.println("@14114114".indexOf("#"));
+    }
+
+
+    public static String getEncryptStr(String s){
+        int index = s.indexOf("@");
+        String target = s;
+        String suffix = "";
+        if (index > 0){
+            String [] array = s.split("@");
+            target = array[0];
+            suffix = "@" + array[1];
+        }
+        StringBuilder sb = new StringBuilder();
+        sb.append(target, 0, 1);
+        if (target.length() <= 2 ){
+            sb.append("*");
+        }else {
+            for (int i = 0; i < target.length() - 2; i++) {
+                sb.append("*");
+            }
+            sb.append(target.substring(target.length() - 1));
+        }
+        sb.append(suffix);
+        return sb.toString();
     }
 
 }
