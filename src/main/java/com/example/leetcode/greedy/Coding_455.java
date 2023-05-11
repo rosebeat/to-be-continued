@@ -83,7 +83,7 @@ public class Coding_455 {
         String str = "13800000000";
         System.out.println(str.substring(0,3) + "****" + str.substring(str.length() - 4 ));
         System.out.println(getEncryptStr("杨凯"));
-        System.out.println(getEncryptStr("kai.yang@ipinyou.com"));
+        System.out.println(getEncryptStr("kai.yang@163.com"));
         System.out.println("@14114114".indexOf("#"));
     }
 
