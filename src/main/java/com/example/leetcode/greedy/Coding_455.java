@@ -1,6 +1,7 @@
 package com.example.leetcode.greedy;
 
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 /**
  * @author kai·yang
@@ -83,8 +84,16 @@ public class Coding_455 {
         String str = "13800000000";
         System.out.println(str.substring(0,3) + "****" + str.substring(str.length() - 4 ));
         System.out.println(getEncryptStr("杨凯"));
-        System.out.println(getEncryptStr("kai.yang@ipinyou.com"));
+        System.out.println(getEncryptStr("kai.yang@163.com"));
         System.out.println("@14114114".indexOf("#"));
+        Pattern p = Pattern.compile("^(\\d{20}|\\d{8})((,\\d{8})|(,\\d{20}))*$");
+        System.out.println(p.matcher("88888888").matches());
+        System.out.println(p.matcher("00000000000000000000,12345678").matches());
+        System.out.println(p.matcher("88888888,00000000000000000000,12345678").matches());
+
+        String re = "^\\d{8}|\\d{20}(,\\d{8}|\\d{20})*$";
+        System.out.println("00000000000000000000,12345678".matches(re));
+
     }
 
 
