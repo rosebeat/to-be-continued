@@ -55,11 +55,27 @@ public class Coding_1013 {
         if (sum % 3 != 0){
             return false;
         }
-        int itemSum = sum / 3;
+        int target = sum / 3;
         int item = 0;
+        int index = 3;
+        //判断是否分成3份
+        //会出现3种情况
+        //1、小于3份   --> index 就不会满足
+        //2、等于3份   --> 2.1: 刚好满足3等份  index等于0  item等于0
+        //               2.2: 第三份不满足 target  既 index 不等于 0  item 可能不等于0
+        //3、大于三份  --> index 等于0  item 是剩下部分的和，如果item 等于0 也满足 3等份，如果不满足则不满足
+
         for (int x : arr){
-
-
+            //提前 +x 是为了判断最后一次时候符合，不用再加额外判断
+            if (item + x  == target && index > 0){
+                index--;
+                item = 0;
+            }else{
+                item += x;
+            }
+        }
+        if (index == 0 && item == 0 ){
+            return true;
         }
         return false;
     }
@@ -70,5 +86,10 @@ public class Coding_1013 {
             sum += x;
         }
         return sum;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {0,2,1,-6,6,-7,9,1,2,0,1};
+        System.out.println(canThreePartsEqualSum(arr));
     }
 }
