@@ -84,6 +84,13 @@ public class Coding_59 {
         return result;
     }
 
+
+    public static int[][] generateMatrixV2(int n){
+        int[][] result = new int[n][n];
+
+        return result;
+    }
+
     public static void main(String[] args) {
         System.out.println(JSON.toJSONString(generateMatrix(4)));
     }

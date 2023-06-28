@@ -6,36 +6,63 @@ import com.example.leetcode.list.source.ListNode;
  * @author kai·yang
  * @Date 2022/4/11 17:30
  *
- * 题目；移除链表元素【203】
- * 难度： easy
+ * leetcode；【203】移除链表元素
+ * level： easy
+ * <link> https://leetcode.cn/problems/remove-linked-list-elements/
  *
  */
 public class Coding_203 {
 
 
     /**
-     * 给你一个链表的头节点 head 和一个整数 val ，请你删除链表中所有满足 Node.val == val 的节点，并返回 新的头节点 。
+     *给你一个链表的头节点 head 和一个整数 val ，请你删除链表中所
      *
-     * 例：
-     *  输入：head = [1,2,6,3,4,5,6], val = 6
-     *  输出：[1,2,3,4,5]
+     *  示例 1：
+     *
+     * 输入：head = [1,2,6,3,4,5,6], val = 6
+     * 输出：[1,2,3,4,5]
+     *
+     *  示例 2：
+     *
+     * 输入：head = [], val = 1
+     * 输出：[]
+     *
+     *  示例 3：
+     *
+     * 输入：head = [7,7,7,7], val = 7
+     * 输出：[]
+     *
+     *
+     *  提示：
+     *
+     *  列表中的节点数目在范围 [0, 104] 内
+     *  1 <= Node.val <= 50
+     *  0 <= val <= 50
+     *
+     *  Related Topics 递归 链表
      */
 
 
     /**
      * 遍历链表
-     * @param node
+     * @param head
      * @return
      */
-    public ListNode removedElements(ListNode node, int val){
-        ListNode newNode = new ListNode();
+    public static ListNode removedElements(ListNode head, int val){
+        if (head == null){
+            return null;
+        }
+        //添加一个新头节点，处理头节点为目标值的情况
+        ListNode newNode = new ListNode(-1000);
+        newNode.next = head;
+        //前一个节点
         ListNode preNode = newNode;
-        while(node != null){
-            if(node.val == val){
-                preNode.next = node.next;
-                preNode = node.next;
+        while(preNode.next != null){
+            if(preNode.next.val == val){
+                preNode.next = preNode.next.next;
+            }else{
+                preNode = preNode.next;
             }
-            node = node.next;
         }
         return newNode.next;
     }
@@ -43,20 +70,44 @@ public class Coding_203 {
 
     /**
      * 递归
-     * @param node
+     * @param head
      * @param val
      * @return
      */
-    public ListNode removedElementsTwo(ListNode node, int val){
-        if (node == null){
-            return node;
+    public static ListNode removedElementsTwo(ListNode head, int val){
+        if (head == null){
+            return head;
         }
-        if(node.val == val){
-            node = removedElementsTwo(node.next, val);
+        if(head.val == val){
+            //如果等于目前值
+            //当前节点的指针 指向下个节点
+            head = removedElementsTwo(head.next, val);
         }else{
-            node.next = removedElementsTwo(node.next, val);
+            //维持原状
+            //当前节点的next指针，指向下个节点
+            head.next = removedElementsTwo(head.next, val);
         }
 
-       return node;
+       return head;
+    }
+
+
+    public static void main(String[] args) {
+        //1,2,6,3,4,5,6
+        ListNode one = new ListNode(1);
+        ListNode two = new ListNode(2);
+        one.setNext(two);
+        ListNode three = new ListNode(6);
+        two.setNext(three);
+        ListNode four = new ListNode(3);
+        three.setNext(four);
+        ListNode five = new ListNode(4);
+        four.setNext(five);
+        ListNode six = new ListNode(5);
+        five.setNext(six);
+        ListNode seven = new ListNode(6);
+        six.setNext(seven);
+        System.out.println(removedElements(one, 6));
+        System.out.println(removedElementsTwo(one, 6));
     }
 }
