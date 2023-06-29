@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
-public class WeslieService {
+public class OdinService {
 
 
     @Autowired
-    WeslieRetryService weslieRetryService;
+    OdinRetryService weslieRetryService;
 
 
 

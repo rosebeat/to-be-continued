@@ -11,8 +11,8 @@
     </parent>
 
     <groupId>groupId</groupId>
-    <artifactId>exercise-product</artifactId>
-    <name>exercise-product</name>
+    <artifactId>to-be-continued</artifactId>
+    <name>to-be-continued</name>
     <version>1.0-SNAPSHOT</version>
     <description>Demo project for Spring Boot</description>
 

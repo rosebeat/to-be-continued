@@ -1,6 +1,6 @@
 package com.example.controller;
 
-import com.example.service.WeslieService;
+import com.example.service.OdinService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @Autowired
-    WeslieService weslieService;
+    OdinService weslieService;
 
 
     @GetMapping("/retry")
