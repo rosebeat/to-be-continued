@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class TestController {
 
     @Autowired
-    OdinService weslieService;
+    OdinService odinService;
 
 
     @GetMapping("/retry")
