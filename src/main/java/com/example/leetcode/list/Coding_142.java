@@ -62,9 +62,11 @@ public class Coding_142 {
      *   1、链表无环
      *     fast走到链表尾部（fast为null），直接返回null
      *   2、链表有环
-     *     当 fast == slow 时 两个指针第一次在环中相遇，分析 fast 和 slow走过的步数
-     *     2.1 假设 slow 走了 s 步，则fast = 2s
-     *     2.2 假设
+     *     当 fast == slow 时 两个指针第一次在环中相遇，fast比slow快，所以fast比slow多走 n 个环的长度，分析 fast 和 slow走过的步数
+     *     2.1 假设 链表非环部分有 a 个节点(不包含环形入口)， 成环部分有 b个节点
+     *     2.2 假设 slow 走了 s 步，则fast = 2s = s + nb, s = nb, slow指针再相遇前走了 n 个环的长度
+     *     2.3 一共有 a + b 个节点，slow指针走了 n * b，那么再走 a 就能到达入口（环形部分 b个节点，走b步就会回到起始节点，也就是环形入口）
+     *     2.4 所以当fast 和 slow 第一次相遇时，fast指针指向链表头，和slow按照每次一步同时走，再次相遇就是环形入口
      *
      * @param head
      * @return
