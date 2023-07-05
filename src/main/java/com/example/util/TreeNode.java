@@ -6,16 +6,15 @@ import lombok.Data;
  * @author kai·yang
  * @Date 2023/2/1 17:12
  */
-@Data
 public class TreeNode {
 
-    int val;
+    public int val;
 
-    TreeNode parent;
+    public TreeNode parent;
 
-    TreeNode left;
+    public TreeNode left;
 
-    TreeNode right;
+    public TreeNode right;
 
     public TreeNode() {}
 
