@@ -6,6 +6,7 @@ import lombok.Data;
  * @author kai·yang
  * @Date 2023/2/1 17:12
  */
+@Data
 public class TreeNode {
 
     public int val;
