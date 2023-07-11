@@ -12,7 +12,7 @@ import java.util.List;
  * 二叉树的 前中后序递归遍历
  *
  */
-public class TreeRecrusion {
+public class TreeRecursion {
 
 
     /**
@@ -36,6 +36,8 @@ public class TreeRecrusion {
         preorder(root.left, result);
         preorder(root.right, result);
     }
+
+
 
 
 
