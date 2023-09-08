@@ -93,6 +93,7 @@ public class TreeIteration {
 
                 if (predecessor.right == null){
                     predecessor.right = root;
+                    root = root.left;
                 }
                 //说明 x 左子树已经遍历完毕，断开 predecessor 右孩子指向x连接，开始遍历 x 右子树
                 else {
@@ -109,7 +110,6 @@ public class TreeIteration {
             }
         }
         return result;
-
     }
 
 
