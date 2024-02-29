@@ -33,4 +33,45 @@ public class InsertSort {
         return array;
     }
 
+
+    /**
+     * 插入排序第二种写法
+     * @param arr
+     */
+    public static void insertSort2(int[] arr){
+        int len = arr.length;
+        for (int i = 1; i < len; i++){
+            //待排序数据的位置
+            int newIndex = i;
+            while( newIndex - 1 >= 0 && arr[newIndex] < arr[newIndex - 1]){
+                //待排序的位置比前一个小，则交换
+                swap(arr, newIndex, newIndex - 1);
+                newIndex--;
+            }
+        }
+
+    }
+
+
+    public static void swap(int[] arr, int i, int j){
+        int temp = arr[i];
+        arr[i] = arr[j];
+        arr[j] = temp;
+    }
+
+    public static void print(int[] arr){
+        for(int x : arr){
+            System.out.print(x + " ");
+        }
+        System.out.println();
+    }
+
+    public static void main(String[] args) {
+        int[] arr = {4,5,3,6,9,1,0,8,2};
+        print(arr);
+        insertSort2(arr);
+        print(arr);
+    }
+
+
 }
