@@ -64,4 +64,25 @@ public class Coding_11 {
         }
         return max;
     }
+
+
+    public int maxArea20240301(int[] height){
+        //左指针起始位置
+        int left = 0;
+        //右指针起始位置
+        int right = height.length - 1;
+        int maxA = 0;
+        while(left < right){
+            //找到左右边缘最低那个
+            int minH = Math.min(height[left], height[right]);
+            maxA = Math.max(maxA, (right - left) * minH);
+            //判断容器那一侧的低，那一侧指针移动
+            if (height[left] > height[right]){
+                right--;
+            }else{
+                left++;
+            }
+        }
+        return maxA;
+    }
 }
