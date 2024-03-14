@@ -1,8 +1,10 @@
 package com.example.leetcode.tree;
 
 import com.example.util.TreeNode;
+import org.springframework.util.CollectionUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @author kai·yang
@@ -79,4 +81,43 @@ public class Coding_103 {
         }
         return result;
     }
+
+
+    /**
+     * 20240304 复习
+     * @param root
+     * @return
+     */
+    public List<List<Integer>> zigzagLevelOrder20240304(TreeNode root){
+        List<List<Integer>> result = new ArrayList<>();
+        if (root == null){
+            return result;
+        }
+        Queue<TreeNode> queue = new ArrayDeque();
+        queue.offer(root);
+        boolean isLeft = true;
+        while(!queue.isEmpty()){
+            int levelSize = queue.size();
+            List<Integer> item = new ArrayList<>();
+            for (int i = 0; i < levelSize; i++){
+                TreeNode poll = queue.poll();
+                item.add(poll.val);
+                if (poll.left != null){
+                    queue.offer(poll.left);
+                }
+                if (poll.right != null){
+                    queue.offer(poll.right);
+                }
+            }
+            if (!isLeft){
+                Collections.reverse(item);
+            }
+            result.add(item);
+            isLeft = !isLeft;
+        }
+
+        return result;
+    }
+
+
 }

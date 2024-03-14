@@ -39,7 +39,7 @@ public class ReverseList {
      * @return
      */
     public static ListNode reverseV2(ListNode head){
-        if ( head.next == null){
+        if ( head == null || head.next == null){
             return head;
         }
         //每次抓取一下当前节点的next，真正的用于反转链表
