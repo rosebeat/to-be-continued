@@ -1,6 +1,17 @@
 package com.example.leetcode.dp;
 
-public class Coding_127 {
+
+
+/**
+ * @author: kai·yang
+ * @Date: 2021/4/26 16:34
+ * @Description:
+ *
+ * LeetCode: 【121】 买卖股票的最佳时机
+ * Difficulty: medium
+ * <link>https://leetcode.cn/problems/best-time-to-buy-and-sell-stock/description/
+ */
+public class Coding_121 {
 
     /**
      * 121 买卖股票最佳时机
