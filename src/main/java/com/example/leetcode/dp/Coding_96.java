@@ -18,6 +18,14 @@ public class Coding_96 {
 
     /**
      * 深度优先遍历
+     *
+     *  给定一个有序序列 1.....n，为了构建出一棵二叉搜索树，可以遍历每一个元素 i，
+     *   将该数字当作根节点root，
+     *   将 1....(n - 1)序列作为左子树
+     *   将 (n + 1) ... n 序列作为右子树
+     *  可以按照同样的方式递归构建左子树和右子树
+     *  由于根的不同，因此能够保证构建的二叉搜索树是唯一的
+     *
      * @param start
      * @param end
      * @return
@@ -42,6 +50,15 @@ public class Coding_96 {
 
     /**
      * 动态规划
+     *  给定一个有序序列 1.....n，为了构建出一棵二叉搜索树，可以遍历每一个元素 i，
+     *  将该数字当作根节点root，
+     *  将 1....(n - 1)序列作为左子树
+     *  将 (n + 1) ... n 序列作为右子树
+     * 可以按照同样的方式递归构建左子树和右子树
+     * 由于根的不同，因此能够保证构建的二叉搜索树是唯一的
+     * 原问题可以分解成规模较小的两个子问题，且子问题的解可以复用
+     *
+     *
      * @return
      */
     public static int numTreesDP(int n){
@@ -61,9 +78,9 @@ public class Coding_96 {
 
     public static void main(String[] args) {
         //动态规划
-        System.out.println(numTreesDP(3));
+        System.out.println(numTreesDP(18));
         //深度优先
-        System.out.println(numTrees(3));
+        System.out.println(numTrees(18));
     }
 
 }
