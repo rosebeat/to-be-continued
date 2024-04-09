@@ -16,4 +16,16 @@ public class MyThreadPool {
     ThreadFactory factory = Executors.defaultThreadFactory();
     RejectedExecutionHandler rejectedExecutionHandler = new ThreadPoolExecutor.CallerRunsPolicy();
 
+
+    public static ThreadLocal<String> threadLocal = new ThreadLocal<>();
+
+    public void set(){
+        threadLocal.set("线程私有");
+    }
+
+    public void get(){
+        String s = threadLocal.get();
+    }
+
+
 }
