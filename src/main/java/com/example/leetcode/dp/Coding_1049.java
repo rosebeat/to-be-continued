@@ -60,7 +60,7 @@ public class Coding_1049 {
        }
        //把石头分成两堆，最大的值
        int half = sum >> 1;
-       //背包容量为 dp[i] 时对应的价值
+       //背包容量为 i 时对应的价值dp[i]
        int[] dp = new int[half + 1];
        //遍历石头
        for (int i = 0; i < stones.length; i++){
