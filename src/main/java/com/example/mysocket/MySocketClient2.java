@@ -1,7 +1,8 @@
 package com.example.mysocket;
 
-import java.io.*;
-import java.net.ServerSocket;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.Socket;
 
 /**
@@ -10,7 +11,7 @@ import java.net.Socket;
  * @Description:
  *
  */
-public class MySocketClient {
+public class MySocketClient2 {
 
 
     public static final String HOST = "127.0.0.1";
@@ -27,11 +28,11 @@ public class MySocketClient {
         Socket client = new Socket(HOST, PORT);
         OutputStream outputStream = client.getOutputStream();
         OutputStreamWriter writer = new OutputStreamWriter(outputStream);
-        for (int i =1; i < 11; i++ ){
-            writer.write("hello socket ");
-            writer.flush();
-        }
+        for (int i =1; i < 21; i++ ){
+            writer.write("hello socket I`M client two");
 
+        }
+        writer.flush();
         writer.close();
         client.close();
 
