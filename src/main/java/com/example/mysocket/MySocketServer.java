@@ -1,7 +1,10 @@
 package com.example.mysocket;
 
 
-import lombok.extern.slf4j.Slf4j;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Component;
 
 import java.io.*;
 import java.net.ServerSocket;
@@ -11,15 +14,17 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.logging.Logger;
 
 /**
  * @author: kai·yang
  * @Date: 2024/4/12 10:20
  * @Description:
  */
-@Slf4j
+@Component
 public class MySocketServer {
+
+    private static final Logger log = LoggerFactory.getLogger(MySocketServer.class);
+
     public static final int PORT = 8899;
 
 
@@ -71,6 +76,7 @@ public class MySocketServer {
             while(true){
                 //阻塞 等待客户端连接
                 Socket accept = server.accept();
+                System.out.println("客户端连接成功，客户端地址：" + accept.getInetAddress());
                 int id = SOCKET_ID.incrementAndGet();
                 executor.submit(() -> handleClientConnection(accept,id));
             }
@@ -89,9 +95,9 @@ public class MySocketServer {
             String line;
             StringJoiner sj = new StringJoiner("\n\t");
             while((line = reader.readLine()) != null){
-                sj.add(line);
+                System.out.println(("client: ["+socketId+"+] content: ["+line+"]"));
             }
-            System.out.println(("client: ["+socketId+"+] content: ["+sj.toString()+"]"));
+            //System.out.println(("client: ["+socketId+"+] content: ["+sj.toString()+"]"));
         } catch (IOException e) {
             log.error("Exception caught during handling client connection");
             log.error(" Error: ", e);

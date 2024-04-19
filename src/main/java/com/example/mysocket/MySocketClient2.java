@@ -29,10 +29,11 @@ public class MySocketClient2 {
         OutputStream outputStream = client.getOutputStream();
         OutputStreamWriter writer = new OutputStreamWriter(outputStream);
         for (int i =1; i < 21; i++ ){
-            writer.write("hello socket I`M client two");
-
+            writer.write("hello socket I`M client two, time: " + i);
+            writer.write("\r\n");
+            writer.flush();
+            Thread.sleep(1000);
         }
-        writer.flush();
         writer.close();
         client.close();
 
