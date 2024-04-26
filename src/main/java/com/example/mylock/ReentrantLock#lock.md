@@ -30,10 +30,12 @@ final void lock() {
 #### 1.2 acquire()方法
 ```java
 public final void acquire(int arg) {
-    //1. tryAcquire(arg) 再次尝试一次获取锁资源, 抢锁失败：false，成功：true
-    //2. addWaiter(Node.EXCLUSIVE)
+    //1. tryAcquire 再次尝试一次获取锁资源, 抢锁失败：false，成功：true
+    //2. addWaiter 将当前线程构造成一个Node，并将当前节点设置为尾节
+    //3. acquireQueued 判断当前节点是否是头节点，如果是则 CAS获取锁资源，如果不是则将当前线程挂起，并返回当前线程是否被中断
     if (!tryAcquire(arg) &&
         acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
+        //安全中断线程
         selfInterrupt();
 }
 
@@ -161,13 +163,14 @@ private Node enq(final Node node) {
  * @return {@code true} if interrupted while waiting
  */
 /**
- * 该方法主要是修改当前节点的前继节点状态
+ * 
  * 1、如果当前节点的前继节点为头节点（head）, 则当前节点再竞争一次锁资源，如果成功的话，将当前节点设置为头节点
  * 2. 如果当前节点不是头节点
- *    2.1：当前节点的前继节点状态为 0（节点刚被创建的时候） 时， 将前继节点状态改为 -1（SIGNAL 后面右节点，任务结束时要将后继节点唤醒）
- *    2.2：当前节点的前继节点状态为 1 （CANCELLED 节点已经被取消）时，说明前继节点任务已经被取消，需要往前找，找到一个节点状态小于 0 的节点为止
- *         将找到的节点的 prev 指针指向 当前节点
- *    2.3：当前节点的前继节点状态小于 0 时，将前继节点状态改为 -1
+ *    2.1：当前节点的前继节点状态为 0（节点刚被创建的时候） 时， 将当前节点的 prev 指针指向前继节点，前继节点的next指针指向当前节点
+ *    2.2：当前节点的前继节点状态为 1 （CANCELLED 节点已经被取消）时，说明前继节点任务已经被取消，需要往前找，找到一个节点状态 <= 0 的节点为止
+ *         将当前节点的 prev 指针指向前继节点，前继节点的next指针指向当前节点
+ *    2.3：将前继节点状态改为 -1（SIGNAL 后面有节点，任务结束时要将后继节点唤醒）)
+ *    2.4：将当前线程挂起，并检查当前线程时候被中断（中断标记为是否为 true）
  * 
  * 
  */
@@ -189,10 +192,14 @@ final boolean acquireQueued(final Node node, int arg) {
                 failed = false;
                 return interrupted;
             }
-            //shouldParkAfterFailedAcquire 将当前线程挂起
-            // parkAndCheckInterrupt 当前节点是否被中断
+            //没有获得锁资源
+            //shouldParkAfterFailedAcquire 将当前节点的prev指针指向尾节点，如果当前尾节点已经被取消，从后往前找，
+                // 直到找到节点状态 <= 0 的前继节点，将当前节点的prev直接指向这个前继节点，前继节点的next指针指向当前节点
+                // CAS 将这个前继节点的状态改为 -1
+            // parkAndCheckInterrupt 将当前线程挂起，并设置中断标记位为 true
             if (shouldParkAfterFailedAcquire(p, node) &&
                 parkAndCheckInterrupt())
+                // 
                 interrupted = true;
         }
     } finally {
@@ -249,6 +256,67 @@ private static boolean shouldParkAfterFailedAcquire(Node pred, Node node) {
         //通过CAS的方式将当前线程挂起
         //也就是把前继节点的状态改为 -1
         compareAndSetWaitStatus(pred, ws, Node.SIGNAL);
+    }
+    return false;
+}
+
+```
+
+
+### 2. 公平锁实现
+
+#### 2.1 lock方法
+和非公平实现一样，调用AQS下的 acquire()方法，只是在acquire方法里，tryAcquire()方法分为了公平和非公平,直接看 tryAcquire()方法
+
+```java
+
+final void lock() {
+    acquire(1);
+}
+
+public final void acquire(int arg) {
+    if (!tryAcquire(arg) && acquireQueued(addWaiter(Node.EXCLUSIVE), arg))
+        selfInterrupt();
+    }
+
+```
+
+#### 2.2 tryAcquire
+
+```java
+
+/**
+ * Fair version of tryAcquire.  Don't grant access unless
+ * recursive call or no waiters or is first.
+ */
+protected final boolean tryAcquire(int acquires) {
+    //获取当前线程
+    final Thread current = Thread.currentThread();
+    // 当前state值
+    int c = getState();
+    //如果 state 等于 0， 说明没有线程持有锁资源
+    if (c == 0) {
+        
+        //hasQueuedPredecessors() 判断AQS队列是否为空或者当前线程是否是排在第一个，如果是返回false
+        //如果AQS队列为空或者当前线程AQS队列中第一位，则通过CAS获取资源
+        if (!hasQueuedPredecessors() &&
+            compareAndSetState(0, acquires)) {
+            //获取所资源成功，设置exclusiveOwnerThread 属性为当前线程
+            setExclusiveOwnerThread(current);
+            return true;
+        }
+    }
+    // state 不等 0，说明有线程持有锁，判断持有锁的线程是否是当前线程
+    else if (current == getExclusiveOwnerThread()) {
+        //是当前线程，锁重入，state + 1
+        int nextc = c + acquires;
+        // + 1 之后state 小于0，说明重入次数已经超过 int 的最大值范围，抛出异常
+        if (nextc < 0)
+            throw new Error("Maximum lock count exceeded");
+        // 设置 state
+        setState(nextc);
+        // 获得锁成功，返回true
+        return true;
     }
     return false;
 }
