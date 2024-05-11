@@ -14,7 +14,7 @@ public class MyReentrantLockTest {
     public static void main(String[] args) {
         lock.lock();
 
-
+        lock.unlock();
 
     }
 

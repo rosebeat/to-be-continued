@@ -325,3 +325,52 @@ protected final boolean tryAcquire(int acquires) {
 }
 
 ```
+
+## unlock方法
+
+释放锁不区分非公平和公平，都是同一套逻辑
+
+```java
+
+/**
+ * Attempts to release this lock.
+ *
+ * <p>If the current thread is the holder of this lock then the hold
+ * count is decremented.  If the hold count is now zero then the lock
+ * is released.  If the current thread is not the holder of this
+ * lock then {@link IllegalMonitorStateException} is thrown.
+ *
+ * @throws IllegalMonitorStateException if the current thread does not
+ *         hold this lock
+ */
+public void unlock() {
+    sync.release(1);
+}
+
+```
+
+### 1. release方法
+
+```java
+
+/**
+ * Releases in exclusive mode.  Implemented by unblocking one or
+ * more threads if {@link #tryRelease} returns true.
+ * This method can be used to implement method {@link Lock#unlock}.
+ *
+ * @param arg the release argument.  This value is conveyed to
+ *        {@link #tryRelease} but is otherwise uninterpreted and
+ *        can represent anything you like.
+ * @return the value returned from {@link #tryRelease}
+ */
+public final boolean release(int arg) {
+    if (tryRelease(arg)) {
+        Node h = head;
+        if (h != null && h.waitStatus != 0)
+            unparkSuccessor(h);
+        return true;
+    }
+    return false;
+}
+
+```
