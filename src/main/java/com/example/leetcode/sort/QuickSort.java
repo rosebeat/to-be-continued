@@ -90,7 +90,7 @@ public class QuickSort {
         int lessR = L - 1;
         //右侧 大于P 的最左侧位置，
         int moreL = R;
-        //左右边界重合则便利完成
+        //左右边界重合则遍历完成
         while (index < moreL) {
             //当前位置元素 小于P 左侧右边界 + 1（lessR + 1）位置 和当前位置交换，左侧有边界右移一位，index++
             if (arr[index] < p) {
@@ -105,7 +105,7 @@ public class QuickSort {
                 index++;
             }
         }
-        //目标值 和 右侧左边界 交换
+        //目标值 和 右侧左边界 交换， 这里交换为将所有等于P的放在一起
         swap(arr, R, moreL);
         //返回 等于 P 的区间下标
         return  new int[]{lessR + 1, moreL};
