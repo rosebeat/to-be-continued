@@ -4,8 +4,16 @@ server:
   servlet:
     context-path: /exercise
 
-#国际化配置 ---> i18n
+
 spring:
+  cache:
+    # 使用 caffeine 作为spring cache
+    type: caffeine
+
+
+  #国际化配置 ---> i18n
   messages:
     basename: i18n/user/messages
     encoding: UTF-8
+
+
