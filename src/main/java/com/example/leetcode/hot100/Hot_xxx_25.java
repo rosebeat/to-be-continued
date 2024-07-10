@@ -54,46 +54,71 @@ public class Hot_xxx_25 {
      * @param k
      * @return
      */
-    public ListNode reverseKGroup(ListNode head, int k) {
+    public static ListNode reverseKGroup(ListNode head, int k) {
         int n = k - 1;
-        ListNode  current = head;
-        ListNode currentHead = head;
-        ListNode pre = new ListNode(-1, head);
-        ListNode newHead = null;
-        boolean isHead = true;
-        while(current != null){
-            n--;
-            current = current.next;
+        //设置一个虚拟节点方便操作
+        ListNode dummy = new ListNode(-1, head);
+        //子链表的前继节点
+        ListNode pre = dummy;
+        //子链表的后继节点
+        ListNode tail = head;
+        while(tail != null){
+
+            //如果 n 等于 0 说明改子链表需要反转
             if (n == 0){
-                pre.next = reverse(currentHead, current);
-                if (isHead){
-                    newHead = pre.next;
-                    isHead = false;
-                }
-                pre = currentHead;
-                currentHead = current.next;
+                ListNode next = tail.next;
+                //0 位置是头节点，1 位置是尾节点
+                ListNode[] reverse = reverse(head, tail);
+                //前继节点next指向反转后子链表头指针
+                pre.next = reverse[0];
+                //修改前继节点
+                pre = reverse[1];
+                //修改新子链表头指针
+                head = next;
+                //修改尾指针
+                tail = next;
                 n = k - 1;
-
+                continue;
             }
-
+            n--;
+            tail = tail.next;
 
         }
-        return newHead;
+        return dummy.next;
     }
 
 
-
-    public ListNode reverse(ListNode head, ListNode targetNode){
-        ListNode targetNodeNext = targetNode.next;
-        ListNode finish = targetNodeNext;
-        ListNode current = head;
-        while(current != targetNodeNext){
-            ListNode next = current.next;
-            current.next = finish;
-            finish = current;
-            current = next;
+    /**
+     * 返回 反转后链表的头和尾
+     * @param head
+     * @param targetNode
+     * @return
+     */
+    public static  ListNode[] reverse(ListNode head, ListNode targetNode){
+        ListNode finish = targetNode.next;
+        ListNode pre = head;
+        while(finish != targetNode){
+            ListNode next = pre.next;
+            pre.next = finish;
+            finish = pre;
+            pre = next;
         }
-        return finish;
+        return new ListNode[]{targetNode, head};
+    }
+
+
+    public static void main(String[] args) {
+        ListNode one = new ListNode(1);
+        ListNode two = new ListNode(2);
+        ListNode three = new ListNode(3);
+        ListNode four = new ListNode(4);
+        ListNode five = new ListNode(5);
+//        one.next = two;
+//        two.next = three;
+//        three.next = four;
+//        four.next = five;
+        ListNode listNode = reverseKGroup(one, 1);
+
     }
 
 
