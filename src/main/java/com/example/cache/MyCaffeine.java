@@ -1,8 +1,9 @@
 package com.example.cache;
 
-import com.github.benmanes.caffeine.cache.Cache;
-import com.github.benmanes.caffeine.cache.Caffeine;
+import com.github.benmanes.caffeine.cache.*;
+import org.checkerframework.checker.nullness.qual.Nullable;
 
+import java.sql.Time;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -24,6 +25,47 @@ public class MyCaffeine {
         TimeUnit.MICROSECONDS.sleep(10);
         System.out.println(caffeine.getIfPresent("bob"));
         System.out.println(caffeine.getIfPresent("lily"));
+
+    }
+
+
+    public void loadCache(){
+
+        LoadingCache loadingCache = (LoadingCache) Caffeine.newBuilder()
+                //缓存最大容量
+                .maximumSize(10)
+                //最后一次访问之后多久过期
+                .expireAfterAccess(2, TimeUnit.SECONDS)
+                //当key过期时，同步执行CacheLoader中的load方法
+                .build( new CacheLoader(){
+                    @Nullable
+                    @Override
+                    public Object load(Object key) throws Exception {
+                        return null;
+                    }
+                });
+
+
+
+    }
+
+
+    public void asyncLoadCache(){
+        AsyncLoadingCache asyncLoadingCache = Caffeine.newBuilder()
+                .maximumSize(10)
+                .expireAfterWrite(2, TimeUnit.SECONDS)
+                //当key过期时，异步执行CacheLoader中的load方法
+                .buildAsync( new CacheLoader(){
+                     @Nullable
+                     @Override
+                     public Object load(Object key) throws Exception {
+                         return null;
+                     }
+                 });
+
+
+
+
 
     }
 
