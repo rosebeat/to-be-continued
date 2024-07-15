@@ -53,6 +53,7 @@ public class MyCaffeine {
     public void asyncLoadCache(){
         AsyncLoadingCache asyncLoadingCache = Caffeine.newBuilder()
                 .maximumSize(10)
+                //写入之后多久过期
                 .expireAfterWrite(2, TimeUnit.SECONDS)
                 //当key过期时，异步执行CacheLoader中的load方法
                 .buildAsync( new CacheLoader(){
@@ -62,8 +63,8 @@ public class MyCaffeine {
                          return null;
                      }
                  });
-
-
+        //异步的，value是 CompletedFuture 类型
+        asyncLoadingCache.put("NAME", CompletableFuture.completedFuture("xxxFuture"));
 
 
 
