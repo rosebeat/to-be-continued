@@ -1,6 +1,7 @@
 package com.example.main;
 
 import com.example.designpattern.factory_pattern.AnimalFactory;
+import com.example.service.OdinService;
 
 import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
@@ -8,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.Optional;
 
 public class Test {
 
@@ -23,17 +25,20 @@ public class Test {
 //            e.printStackTrace();
 //        }
 
-        String s = "这是字符串";
+//        String s = "这是字符串";
+//
+//        String ss = s.toLowerCase();
+//
+//        System.out.println("ss: " + ss);
+//
+//        System.out.println(LocalDate.now().minusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
+//
+//        System.out.println(isPalindrome(10));
+//
+//        System.out.println(format.format(new Date()));
 
-        String ss = s.toLowerCase();
 
-        System.out.println("ss: " + ss);
-
-        System.out.println(LocalDate.now().minusDays(1).format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));
-
-        System.out.println(isPalindrome(10));
-
-        System.out.println(format.format(new Date()));
+        test();
     }
 
     public static boolean isPalindrome(int x) {
@@ -48,5 +53,28 @@ public class Test {
         }
         return x == reverse;
     }
+
+
+
+    public static void test(){
+        OdinService a = null;
+        get(a);
+        a.validateRetry();
+        System.out.println(a);
+    }
+
+    public static void get(OdinService a){
+        if (a == null){
+            a = new OdinService();
+            System.out.println("get method: " + a);
+        }
+    }
+
+
+
+
+
+
+
 
 }
