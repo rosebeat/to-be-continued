@@ -47,10 +47,36 @@ public class Hot_xxx_114 {
 
 
     /**
-     *
+     * 方法一：
+     *  1、将右子树接到左子树最右侧节点上
+     *  2、左子树指向根节点的右孩子节点，根节点左孩子指向null
+     *  3、当前节点指向右节点，重复以上步骤
      * @param root
      */
     public void flatten(TreeNode root){
+        TreeNode current = root;
+        while(current != null){
+
+            //没有左子树
+            if(current.left == null){
+                current = current.right;
+            }else{
+                //找到左子树 最右侧的节点
+                TreeNode per = current.left;
+                while (per.right != null){
+                    per = per.right;
+                }
+                //将当前节点的右子树 接到 左子树最右侧的节点上
+                per.right = current.right;
+                //当前节点的左子树指向 右子树
+                current.right = current.left;
+                //当前节点的左子树置为null
+                current.left = null;
+                //指向下一个节点
+                current = current.right;
+            }
+        }
+
 
     }
 
