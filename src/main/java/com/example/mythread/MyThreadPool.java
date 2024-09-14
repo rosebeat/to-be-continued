@@ -31,8 +31,6 @@ public class MyThreadPool {
     RejectedExecutionHandler rejectedExecutionHandler = new ThreadPoolExecutor.CallerRunsPolicy();
 
 
-
-
     public static ThreadLocal<String> threadLocal = new ThreadLocal<>();
 
 
@@ -42,6 +40,10 @@ public class MyThreadPool {
 
     public void get(){
         String s = threadLocal.get();
+    }
+
+    public void test(){
+        threadPoolExecutor.submit(() -> System.out.println(""));
     }
 
 
