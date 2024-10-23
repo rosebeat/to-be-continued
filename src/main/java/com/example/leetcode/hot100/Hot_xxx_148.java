@@ -20,7 +20,11 @@ public class Hot_xxx_148 {
 
 
     /**
-     * 有点问题， leetcode 30测试用例通过 24
+     *
+     * 给你链表的头结点 head ，请将其按 升序 排列并返回 排序后的链表 。
+     *
+     *
+     * TODO 有点问题， leetcode 30测试用例通过 24
      * @param head
      * @return
      */
@@ -43,6 +47,50 @@ public class Hot_xxx_148 {
         return item.get(0);
     }
 
+
+    /**
+     * 归并排序递归版
+     *
+     * 先分割，再合并
+     *
+     * @param head
+     * @return
+     */
+    public static ListNode sortListV2(ListNode head){
+        if(head == null || head.next == null){
+            return head;
+        }
+        //刚开始fast比slow快一个节点，防止死循环
+        ListNode fast = head.next;
+        ListNode slow = head;
+        while(fast != null && fast.next != null){
+            fast = fast.next.next;
+            slow = slow.next;
+        }
+        //右半边开始的节点
+        ListNode temp = slow.next;
+        slow.next = null;
+        //左区间
+        ListNode left = sortListV2(head);
+        //右区间
+        ListNode right = sortListV2(temp);
+        //设置一个新头节点
+        ListNode newH = new ListNode(-1);
+        ListNode result = newH;
+        //合并两个区间
+        while(left != null && right != null){
+            if (left.val < right.val){
+                newH.next = left;
+                left = left.next;
+            }else{
+                newH.next = right;
+                right = right.next;
+            }
+            newH = newH.next;
+        }
+        newH.next = left != null ? left : right;
+        return result.next;
+    }
 
 
 

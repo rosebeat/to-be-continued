@@ -42,28 +42,35 @@ public class Hot_xxx_543 {
 
 
     /**
-     *
      * 递归
-     *  树的直径相当于root节点（不算root）的 左子树的最大深度 + 右子树的最大深度
-     *
+     * 树的直径 ==
+     * 记当前节点为 X，X节点左子树的最大深度为L， X节点右子树的最大深度为R， 那么以X为起始位置的最大节点数为：L + R + 1
+     * 那么树的宽度 等于 最大节点树 减一
      *
      * @param root
      * @return
      */
+
+    //树的最长节点数
+    int ans = 0;
+
     public int diameterOfBinaryTree(TreeNode root){
         if (root == null){
             return 0;
         }
-
-        return leftRightDepth(root.left) + leftRightDepth(root.right);
+        depth(root);
+        //最长路径
+        return ans - 1;
     }
 
-    public int leftRightDepth(TreeNode root){
+    public int depth(TreeNode root){
         if (root == null){
             return 0;
         }
-        int l = leftRightDepth(root.left);
-        int r = leftRightDepth(root.right);
+        int l = depth(root.left);
+        int r = depth(root.right);
+        //以该节点出发，左子树和右子树最多节点数
+        ans = Math.max(ans, l + r + 1);
         return Math.max(l, r) + 1;
     }
 

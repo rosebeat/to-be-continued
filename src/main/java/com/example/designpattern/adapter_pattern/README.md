@@ -1,4 +1,4 @@
-##adapter pattern 适配器模式
+## adapter pattern 适配器模式
 - 类适配器模式
     对应适配器继承适配者
 - 对象适配器模式
