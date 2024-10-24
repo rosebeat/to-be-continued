@@ -1,9 +1,6 @@
 package com.example.leetcode.hot100;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 /**
  * @Ahthor k·Young
@@ -14,6 +11,8 @@ import java.util.List;
  * LeetCode: 【47】全排序II
  * Difficulty: medium
  * <link>https://leetcode.cn/problems/permutations-ii/solutions/9917/hui-su-suan-fa-python-dai-ma-java-dai-ma-by-liwe-2/
+ *
+ * 回溯法
  */
 public class Hot_xxx_47 {
 
@@ -23,6 +22,9 @@ public class Hot_xxx_47 {
         int n = nums.length;
         boolean[] used = new boolean[n];
         Deque<Integer> element = new ArrayDeque<>();
+        // 排序（升序或者降序都可以），排序是剪枝的前提
+        // 在判断是否重复的时候比较的当前位置的元素和上一个元素是否重复，所以数组要进行排序，方便重复判断
+        Arrays.sort(nums);
         backTrace(nums, element, used, res, n, 0);
         return res;
     }
@@ -57,9 +59,6 @@ public class Hot_xxx_47 {
             used[i] = false;
             element.removeLast();
         }
-
-
-
 
     }
 
