@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * Difficulty: medium
  * <link>https://leetcode.cn/problems/group-anagrams/description/?envType=study-plan-v2&envId=top-100-liked
  */
-public class Hot_002_49 {
+public class Hot_xxx_49 {
 
     /**
      * 给你一个字符串数组，请你将 字母异位词 组合在一起。可以按任意顺序返回结果列表。

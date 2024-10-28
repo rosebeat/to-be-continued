@@ -11,7 +11,7 @@ import com.alibaba.fastjson2.JSON;
  * Difficulty: medium
  * <link>https://leetcode.cn/studyplan/top-100-liked/
  */
-public class Hot_004_283 {
+public class Hot_xxx_283 {
 
     /**
      * 问题描述：
