@@ -83,6 +83,7 @@ public class Hot_xxx_42 {
         }
 
         //遍历每个柱子
+        //第一根柱子和最后一根柱子可定不能储水，所以 i可以从1开始， 小于 （n - 1）
         for (int i = 0; i < n; i++){
             //取两侧柱子最小值
             sum += Math.min(leftMax[i], rightMax[i]) - height[i];
