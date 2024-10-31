@@ -25,7 +25,7 @@ public class Hard_Coding_42 {
      * 输出：9
      *
      *
-     * 提示：
+     * 提示：na
      *
      * n == height.length
      * 1 <= n <= 2 * 104
