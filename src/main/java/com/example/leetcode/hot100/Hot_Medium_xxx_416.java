@@ -43,7 +43,7 @@ public class Hot_Medium_xxx_416 {
      * @return
      */
     public boolean canPartition(int[] nums) {
-
+        return false;
     }
 
 }
